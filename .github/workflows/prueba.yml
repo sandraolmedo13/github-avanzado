@@ -1,0 +1,20 @@
+name: Prueba Self-Hosted Runner
+
+on:
+  push:
+
+jobs:
+  comprobar-token:
+    runs-on: self-hosted
+
+    steps:
+      - name: Comparar DEV_TOKEN con LOCAL_DEV_TOKEN
+        env:
+          DEV_TOKEN: ${{ secrets.DEV_TOKEN }}
+        run: |
+          if [ "$DEV_TOKEN" = "$LOCAL_DEV_TOKEN" ]; then
+            echo "Los tokens coinciden"
+          else
+            echo "Los tokens NO coinciden"
+            exit 1
+          fi
